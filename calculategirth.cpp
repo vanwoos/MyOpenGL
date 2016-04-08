@@ -1,6 +1,68 @@
+#include <iostream>
+#include <math.h>
 #include "calculategirth.h"
+#include "Link.class.h"
+#include "convelHull.func.h"
 
-float calculateGirth(list<node> pclList,height)
+using namespace std;
+
+double distanceOfTwoPoint(double x1,double y1,double z1,double x2,double y2,double z2)
 {
-    return 10.255;
+    double dx=x2-x1;
+    double dy=y2-y1;
+    double dz=z2-z1;
+    return sqrt(dx*dx+dy*dy+dz*dz);
+}
+void calculateGirth(Link * link,double * girth,int curve=1)//当curve==1时，计算的是曲线的长度，当curve==0时，计算的是围长
+{
+    *girth=0.0;
+    Node * tmp=link->pointOfSpecificElement(1);
+    Node * tmp2=tmp;
+    if(tmp2==NULL) return;
+    while(tmp!=NULL && tmp->next!=NULL)
+    {
+        *girth+=distanceOfTwoPoint(tmp->x,tmp->y,tmp->z,tmp->next->x,tmp->next->y,tmp->next->z);
+        tmp=tmp->next;
+    }
+    if(curve==0)
+    {
+        *girth+=distanceOfTwoPoint(tmp->x,tmp->y,tmp->z,tmp2->x,tmp2->y,tmp2->z);
+    }
+}
+
+void calculateSpecificHeight(Link * link_bodyNoArm,double height,double * girth)//获取特定高度位置的围长
+{
+    Link * link_tmp=new Link();
+    {//构建特定高度的链表
+        Node * tmp=link_bodyNoArm->pointOfSpecificElement(1);
+        while(tmp!=NULL)
+        {
+            if(tmp->y>height-0.005 && tmp->y<height+0.005)
+            {
+                link_tmp->add(tmp->x,tmp->y,tmp->z);
+            }
+            tmp=tmp->next;
+        }
+    }
+    {//使用凸包算法计算围长
+        convelHull(link_tmp,5);
+        //pinghua2(link_tmp,PINGHUA);
+        calculateGirth(link_tmp,girth,0);
+    }
+    //saveToFile(link_tmp,filename2);
+    delete link_tmp;
+}
+
+float calculateGirth(list<node> pclList,float height)
+{
+    double girth=0.0;
+    Link * tmpLink=new Link();
+    list<node>::iterator it;
+    for(it=pclList.begin();it!=pclList.end();++it)
+    {
+        tmpLink->add((*it).x,(*it).y,(*it).z);
+    }
+    calculateSpecificHeight(tmpLink,height,&girth);
+    delete tmpLink;
+    return girth;
 }

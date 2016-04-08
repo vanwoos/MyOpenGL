@@ -79,7 +79,7 @@ void Window::on_doubleSpinBox_valueChanged(double arg1)
 
 void Window::on_pushButton_clicked()
 {
-    float girth=calculateGirth(pclList);
+    float girth=calculateGirth(pclList,showHeight);
     QString str;
     str.setNum(girth);
     ui->lineEdit->setText(str);
