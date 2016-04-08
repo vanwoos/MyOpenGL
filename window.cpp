@@ -6,6 +6,8 @@
 
 #include "myglwidget.h"
 
+int showOnLeft=0;
+
 Window::Window(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Window)
@@ -58,4 +60,9 @@ void Window::on_rotYSpinBox_valueChanged(int arg1)
 void Window::on_rotZSpinBox_valueChanged(int arg1)
 {
     ui->rotZSlider->setValue(arg1);
+}
+
+void Window::on_checkBox_stateChanged(int arg1)
+{
+    showOnLeft=arg1;
 }

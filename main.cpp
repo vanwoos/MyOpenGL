@@ -3,10 +3,20 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+
 #include "window.h"
+
+
+
+char * filename=NULL;
+
 
 int main(int argc, char *argv[])
 {
+    if(argc==2)
+    {
+        filename=argv[1];
+    }
     QApplication app(argc, argv);
     Window window;
     window.resize(window.sizeHint());

@@ -4,6 +4,18 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
+#include <vector>
+#include <list>
+using namespace std;
+extern char *filename;
+
+struct node {
+    float x;
+    float y;
+    float z;
+};
+
+
 
 class MyGLWidget : public QGLWidget
 {
@@ -47,6 +59,9 @@ private:
     int zRot;
     float xTrans;
     float yTrans;
+    int viewWidth;
+    int viewHeight;
+    int viewSided;
 
     QPoint lastPos;
 };
