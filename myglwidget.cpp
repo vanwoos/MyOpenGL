@@ -7,6 +7,7 @@
 
 list<struct node> pclList;
 extern int showOnLeft;
+extern double showHeight;
 
 int getPoints(char *filename)
 {
@@ -120,6 +121,7 @@ void MyGLWidget::initializeGL()
     glPointSize(1.0);
     glLineWidth(1.0);
 
+
     //static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
     //glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 }
@@ -141,10 +143,22 @@ void MyGLWidget::paintGL()
         glBegin(GL_QUADS);
             //glNormal3f(1,0, 0.707);
             glColor3f(1.0,1.0,0.0);//x coordinate
-            glVertex3f(-1,-1,1);
-                    glVertex3f(-1,1,1);
-                    glVertex3f(1,1,1);
-                    glVertex3f(1,-1,1);
+            glVertex3f(-1,showHeight,-1);
+            glVertex3f(-1,showHeight,1);
+            glVertex3f(1,showHeight,1);
+            glVertex3f(1,showHeight,-1);
+        glEnd();
+        glBegin(GL_LINES);
+            //glNormal3f(1,0, 0.707);
+            glColor3f(1.0,1.0,0.0);//x coordinate
+            glVertex3f(-1,showHeight,-1);
+            glVertex3f(-1,showHeight,1);
+            glVertex3f(-1,showHeight,1);
+            glVertex3f(1,showHeight,1);
+            glVertex3f(1,showHeight,1);
+            glVertex3f(1,showHeight,-1);
+            glVertex3f(1,showHeight,-1);
+            glVertex3f(-1,showHeight,-1);
         glEnd();
     }
     //draw();
@@ -264,4 +278,9 @@ void MyGLWidget::drawCoordinate()
         glVertex3f(-1,-1,0);
         glVertex3f(0,0,1.2);
     glEnd();*/
+}
+
+void MyGLWidget::myPaintGL()
+{
+    this->paintGL();
 }

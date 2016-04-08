@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         window.cpp \
-    myglwidget.cpp
+    myglwidget.cpp \
+    calculategirth.cpp
 
 HEADERS  += window.h \
-    myglwidget.h
+    myglwidget.h \
+    calculategirth.h
 
 FORMS    += window.ui

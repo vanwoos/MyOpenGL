@@ -5,8 +5,11 @@
 #include "ui_window.h"
 
 #include "myglwidget.h"
+#include "calculategirth.h"
 
 int showOnLeft=0;
+double showHeight=0.0;
+extern list<struct node> pclList;
 
 Window::Window(QWidget *parent) :
     QWidget(parent),
@@ -65,4 +68,24 @@ void Window::on_rotZSpinBox_valueChanged(int arg1)
 void Window::on_checkBox_stateChanged(int arg1)
 {
     showOnLeft=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_doubleSpinBox_valueChanged(double arg1)
+{
+    showHeight=arg1/100;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_pushButton_clicked()
+{
+    float girth=calculateGirth(pclList);
+    QString str;
+    str.setNum(girth);
+    ui->lineEdit->setText(str);
+}
+
+void Window::on_pushButton_2_clicked()
+{
+    ui->lineEdit->setText(QString(""));
 }

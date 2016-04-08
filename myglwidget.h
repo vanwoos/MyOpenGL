@@ -4,16 +4,18 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
-#include <vector>
 #include <list>
 using namespace std;
 extern char *filename;
 
+#ifndef STRUCTNODE
+#define STRUCTNODE
 struct node {
     float x;
     float y;
     float z;
 };
+#endif
 
 
 
@@ -43,6 +45,7 @@ public slots:
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
+    void myPaintGL();
 
 signals:
     // signaling rotation from mouse movement
