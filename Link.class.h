@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct nodetmp{//一维链表使用的
 	double x, y, z;
         struct nodetmp * next;

@@ -1,6 +1,6 @@
 // myglwidget.cpp
 
-#include <QtWidgets>
+#include <QWidget>
 #include <QtOpenGL>
 
 #include "myglwidget.h"

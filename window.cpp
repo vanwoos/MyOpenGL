@@ -1,6 +1,6 @@
 // window.cpp
 
-#include <QtWidgets>
+#include <QWidget>
 #include "window.h"
 #include "ui_window.h"
 
@@ -29,10 +29,10 @@ Window::~Window()
 
 void Window::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_Escape)
-        close();
-    else
-        QWidget::keyPressEvent(e);
+    //if (e->key() == Qt::Key_Escape)
+      //  close();
+    //else
+      //  QWidget::keyPressEvent(e);
 }
 
 void Window::on_rotXSlider_valueChanged(int value)
