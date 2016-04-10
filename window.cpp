@@ -9,6 +9,8 @@
 
 int showOnLeft=0;
 double showHeight=0.0;
+double platSize=1.0;
+int redPoints=-25;
 extern list<struct node> pclList;
 
 Window::Window(QWidget *parent) :
@@ -20,6 +22,8 @@ Window::Window(QWidget *parent) :
     connect(ui->myGLWidget, SIGNAL(xRotationChanged(int)), ui->rotXSlider, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(yRotationChanged(int)), ui->rotYSlider, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(zRotationChanged(int)), ui->rotZSlider, SLOT(setValue(int)));
+    ui->doubleSpinBox_2->setValue(platSize);
+    ui->horizontalSlider->setValue(int(platSize*100));
 }
 
 Window::~Window()
@@ -88,4 +92,24 @@ void Window::on_pushButton_clicked()
 void Window::on_pushButton_2_clicked()
 {
     ui->lineEdit->setText(QString(""));
+}
+
+void Window::on_horizontalSlider_valueChanged(int value)
+{
+    platSize=value/100.0;
+    ui->doubleSpinBox_2->setValue(value/100.0);
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_doubleSpinBox_2_valueChanged(double arg1)
+{
+    platSize=arg1;
+    ui->horizontalSlider->setValue(int(arg1*100));
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_spinBox_valueChanged(int arg1)
+{
+    redPoints=arg1;
+    ui->myGLWidget->updateGL();
 }

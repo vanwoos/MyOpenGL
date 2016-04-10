@@ -8,6 +8,8 @@
 list<struct node> pclList;
 extern int showOnLeft;
 extern double showHeight;
+extern double platSize;
+extern int redPoints;
 
 int getPoints(char *filename)
 {
@@ -41,7 +43,35 @@ int printPoints()
         glEnd();
         //printf("%f %f %f\n",(*it).x,(*it).y,(*it).z);
     }
-
+    glColor3f(1.0,0.0,0.0);
+    glPointSize(5.0);
+    {//draw red points
+        int i=abs(redPoints);
+        //i=25;
+        if(redPoints>0)
+        {
+            for(it=pclList.begin();it!=pclList.end();++it)
+            {
+                --i;
+                if(i<0) break;
+                glBegin(GL_POINTS);
+                glVertex3f((*it).x,(*it).y,(*it).z);
+                glEnd();
+            }
+        }
+        else{
+            for(it=pclList.end();it!=pclList.begin();--it)
+            {
+                --i;
+                if(i<0) break;
+                glBegin(GL_POINTS);
+                glVertex3f((*it).x,(*it).y,(*it).z);
+                glEnd();
+            }
+        }
+    }
+    glColor3f(1.0,1.0,1.0);
+    glPointSize(1.0);
     return 0;
 }
 
@@ -143,22 +173,22 @@ void MyGLWidget::paintGL()
         glBegin(GL_QUADS);
             //glNormal3f(1,0, 0.707);
             glColor3f(1.0,1.0,0.0);//x coordinate
-            glVertex3f(-1,showHeight,-1);
-            glVertex3f(-1,showHeight,1);
-            glVertex3f(1,showHeight,1);
-            glVertex3f(1,showHeight,-1);
+            glVertex3f(-platSize,showHeight,-platSize);
+            glVertex3f(-platSize,showHeight,platSize);
+            glVertex3f(platSize,showHeight,platSize);
+            glVertex3f(platSize,showHeight,-platSize);
         glEnd();
         glBegin(GL_LINES);
             //glNormal3f(1,0, 0.707);
             glColor3f(1.0,1.0,0.0);//x coordinate
-            glVertex3f(-1,showHeight,-1);
-            glVertex3f(-1,showHeight,1);
-            glVertex3f(-1,showHeight,1);
-            glVertex3f(1,showHeight,1);
-            glVertex3f(1,showHeight,1);
-            glVertex3f(1,showHeight,-1);
-            glVertex3f(1,showHeight,-1);
-            glVertex3f(-1,showHeight,-1);
+            glVertex3f(-platSize,showHeight,-platSize);
+            glVertex3f(-platSize,showHeight,platSize);
+            glVertex3f(-platSize,showHeight,platSize);
+            glVertex3f(platSize,showHeight,platSize);
+            glVertex3f(platSize,showHeight,platSize);
+            glVertex3f(platSize,showHeight,-platSize);
+            glVertex3f(platSize,showHeight,-platSize);
+            glVertex3f(-platSize,showHeight,-platSize);
         glEnd();
     }
     //draw();

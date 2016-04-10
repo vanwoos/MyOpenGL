@@ -42,6 +42,12 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_doubleSpinBox_2_valueChanged(double arg1);
+
+    void on_spinBox_valueChanged(int arg1);
+
 private:
     Ui::Window *ui;
 };
