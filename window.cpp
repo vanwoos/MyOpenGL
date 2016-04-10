@@ -81,7 +81,7 @@ void Window::on_pushButton_clicked()
 {
     float girth=calculateGirth(pclList,showHeight);
     QString str;
-    str.setNum(girth);
+    str.setNum(girth*100);
     ui->lineEdit->setText(str);
 }
 
