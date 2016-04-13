@@ -6,7 +6,7 @@
 #include <QGLWidget>
 #include <list>
 using namespace std;
-extern char *filename;
+
 
 #ifndef STRUCTNODE
 #define STRUCTNODE
@@ -56,17 +56,29 @@ signals:
 private:
     void draw();
     void drawCoordinate();
+    int printPoints();
 
-    int xRot;
+
+    int xRot;//angle to rotate
     int yRot;
     int zRot;
-    float xTrans;
+    float xTrans;//transfer distance
     float yTrans;
-    int viewWidth;
+    int viewWidth;//the width of the viewport
     int viewHeight;
-    int viewSided;
+    int viewSided;//use to zoom in or zoom out
 
     QPoint lastPos;
+
+public:
+    int showPlat;//if show a platform
+    double platHeight;//the height of the platform
+    double platSize;//the size of the platform
+    int redPoints;//the number of red points
+    list<struct node> pclList;
+
+public:
+    int getPoints(char *filename);
 };
 
 #endif // MYGLWIDGET_H

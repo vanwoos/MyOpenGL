@@ -7,11 +7,8 @@
 #include "myglwidget.h"
 #include "calculategirth.h"
 
-int showOnLeft=0;
-double showHeight=0.0;
-double platSize=1.0;
-int redPoints=-25;
-extern list<struct node> pclList;
+extern char * filename;
+//extern list<struct node> pclList;
 
 Window::Window(QWidget *parent) :
     QWidget(parent),
@@ -22,8 +19,12 @@ Window::Window(QWidget *parent) :
     connect(ui->myGLWidget, SIGNAL(xRotationChanged(int)), ui->rotXSlider, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(yRotationChanged(int)), ui->rotYSlider, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(zRotationChanged(int)), ui->rotZSlider, SLOT(setValue(int)));
-    ui->doubleSpinBox_2->setValue(platSize);
-    ui->horizontalSlider->setValue(int(platSize*100));
+    ui->doubleSpinBox_2->setValue(ui->myGLWidget->platSize);
+    ui->horizontalSlider->setValue(int(ui->myGLWidget->platSize*100));
+    ui->widget->setXRotation(90);
+    ui->myGLWidget->getPoints(filename);
+    ui->widget->redPoints=0;
+
 }
 
 Window::~Window()
@@ -71,45 +72,56 @@ void Window::on_rotZSpinBox_valueChanged(int arg1)
 
 void Window::on_checkBox_stateChanged(int arg1)
 {
-    showOnLeft=arg1;
+    ui->myGLWidget->showPlat=arg1;
     ui->myGLWidget->updateGL();
 }
 
 void Window::on_doubleSpinBox_valueChanged(double arg1)
 {
-    showHeight=arg1/100;
+    ui->myGLWidget->platHeight=arg1/100;
     ui->myGLWidget->updateGL();
 }
 
 void Window::on_pushButton_clicked()
 {
-    float girth=calculateGirth(pclList,showHeight);
+    ui->widget->pclList.clear();
+    float girth=calculateGirth(ui->myGLWidget->pclList,ui->myGLWidget->platHeight,ui->doubleSpinBox_3->value()/100.0,ui->widget->pclList);
     QString str;
     str.setNum(girth*100);
     ui->lineEdit->setText(str);
+
+    ui->widget->updateGL();
 }
 
 void Window::on_pushButton_2_clicked()
 {
     ui->lineEdit->setText(QString(""));
+    ui->widget->pclList.clear();
+    ui->widget->updateGL();
 }
 
 void Window::on_horizontalSlider_valueChanged(int value)
 {
-    platSize=value/100.0;
+    ui->myGLWidget->platSize=value/100.0;
     ui->doubleSpinBox_2->setValue(value/100.0);
     ui->myGLWidget->updateGL();
 }
 
 void Window::on_doubleSpinBox_2_valueChanged(double arg1)
 {
-    platSize=arg1;
+    ui->myGLWidget->platSize=arg1;
     ui->horizontalSlider->setValue(int(arg1*100));
     ui->myGLWidget->updateGL();
 }
 
 void Window::on_spinBox_valueChanged(int arg1)
 {
-    redPoints=arg1;
+    ui->myGLWidget->redPoints=arg1;
     ui->myGLWidget->updateGL();
+}
+
+void Window::on_pushButton_3_clicked()
+{
+    int tmpvalue=ui->spinBox->value();
+    ui->spinBox->setValue(-tmpvalue);
 }

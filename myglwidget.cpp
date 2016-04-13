@@ -5,13 +5,12 @@
 
 #include "myglwidget.h"
 
-list<struct node> pclList;
-extern int showOnLeft;
-extern double showHeight;
-extern double platSize;
-extern int redPoints;
 
-int getPoints(char *filename)
+
+
+
+
+int MyGLWidget::getPoints(char *filename)
 {
     if(filename==NULL) return -1;
     FILE * fp=fopen(filename,"r");
@@ -30,7 +29,7 @@ int getPoints(char *filename)
     return 0;
 }
 
-int printPoints()
+int MyGLWidget::printPoints()
 {
     list<struct node>::iterator it;
 
@@ -46,7 +45,7 @@ int printPoints()
     glColor3f(1.0,0.0,0.0);
     glPointSize(5.0);
     {//draw red points
-        int i=abs(redPoints);
+        int i=abs(this->redPoints);
         //i=25;
         if(redPoints>0)
         {
@@ -78,13 +77,17 @@ int printPoints()
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xRot = 0;
-    yRot = 0;
-    zRot = 0;
-    xTrans=0;
-    yTrans=0;
-    viewSided=0;
-    getPoints(filename);
+    this->xRot = 0;
+    this->yRot = 0;
+    this->zRot = 0;
+    this->xTrans=0;
+    this->yTrans=0;
+    this->viewSided=0;
+    this->showPlat=0;
+    this->platHeight=0.0;
+    this->platSize=1.0;
+    this->redPoints=-25;
+    //getPoints(filename);
 }
 
 MyGLWidget::~MyGLWidget()
@@ -145,7 +148,7 @@ void MyGLWidget::initializeGL()
     glClearColor(0.0,0.0,0.0,0.0);
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
-    glShadeModel(GL_SMOOTH);
+    //glShadeModel(GL_SMOOTH);
     //glEnable(GL_LIGHTING);
     //glEnable(GL_LIGHT0);
     glPointSize(1.0);
@@ -168,27 +171,27 @@ void MyGLWidget::paintGL()
     glRotatef(xRot / 1.0, 1.0, 0.0, 0.0);
     glRotatef(yRot / 1.0, 0.0, 1.0, 0.0);
     glRotatef(zRot / 1.0, 0.0, 0.0, 1.0);
-    if(showOnLeft)
+    if(this->showPlat)
     {
         glBegin(GL_QUADS);
             //glNormal3f(1,0, 0.707);
             glColor3f(1.0,1.0,0.0);//x coordinate
-            glVertex3f(-platSize,showHeight,-platSize);
-            glVertex3f(-platSize,showHeight,platSize);
-            glVertex3f(platSize,showHeight,platSize);
-            glVertex3f(platSize,showHeight,-platSize);
+            glVertex3f(-platSize,platHeight,-platSize);
+            glVertex3f(-platSize,platHeight,platSize);
+            glVertex3f(platSize,platHeight,platSize);
+            glVertex3f(platSize,platHeight,-platSize);
         glEnd();
         glBegin(GL_LINES);
             //glNormal3f(1,0, 0.707);
             glColor3f(1.0,1.0,0.0);//x coordinate
-            glVertex3f(-platSize,showHeight,-platSize);
-            glVertex3f(-platSize,showHeight,platSize);
-            glVertex3f(-platSize,showHeight,platSize);
-            glVertex3f(platSize,showHeight,platSize);
-            glVertex3f(platSize,showHeight,platSize);
-            glVertex3f(platSize,showHeight,-platSize);
-            glVertex3f(platSize,showHeight,-platSize);
-            glVertex3f(-platSize,showHeight,-platSize);
+            glVertex3f(-platSize,platHeight,-platSize);
+            glVertex3f(-platSize,platHeight,platSize);
+            glVertex3f(-platSize,platHeight,platSize);
+            glVertex3f(platSize,platHeight,platSize);
+            glVertex3f(platSize,platHeight,platSize);
+            glVertex3f(platSize,platHeight,-platSize);
+            glVertex3f(platSize,platHeight,-platSize);
+            glVertex3f(-platSize,platHeight,-platSize);
         glEnd();
     }
     //draw();

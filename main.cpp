@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     }
     QApplication app(argc, argv);
     Window window;
+    //window.ui->myGLWidget->getPoints(filename);
     window.resize(window.sizeHint());
     int desktopArea = QApplication::desktop()->width() *
                      QApplication::desktop()->height();

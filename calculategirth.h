@@ -13,4 +13,4 @@ struct node{
 };
 #endif
 
-float calculateGirth(list<struct node> pclList,float height);
+float calculateGirth(const list<struct node> pclList,float height,float span,list<struct node> & pclOutList);

@@ -30,22 +30,24 @@ void calculateGirth(Link * link,double * girth,int curve=1)//当curve==1时，�
     }
 }
 
-void calculateSpecificHeight(Link * link_bodyNoArm,double height,double * girth)//获取特定高度位置的围长
+void calculateSpecificHeight(Link * link_bodyNoArm,double height,float span,double * girth,Link * link_out)//获取特定高度位置的围长
 {
     Link * link_tmp=new Link();
     {//构建特定高度的链表
         Node * tmp=link_bodyNoArm->pointOfSpecificElement(1);
         while(tmp!=NULL)
         {
-            if(tmp->y>height-0.005 && tmp->y<height+0.005)
+            if(tmp->y>height-span && tmp->y<height+span)
             {
                 link_tmp->add(tmp->x,tmp->y,tmp->z);
+                //link_out->add(tmp->x,tmp->y,tmp->z);
             }
             tmp=tmp->next;
         }
     }
     {//使用凸包算法计算围长
         convelHull(link_tmp,5);
+        link_out->copy(link_tmp);
         //pinghua2(link_tmp,PINGHUA);
         calculateGirth(link_tmp,girth,0);
     }
@@ -53,16 +55,26 @@ void calculateSpecificHeight(Link * link_bodyNoArm,double height,double * girth)
     delete link_tmp;
 }
 
-float calculateGirth(list<node> pclList,float height)
+float calculateGirth(list<node> pclList,float height,float span,list<struct node> & pclOutList)
 {
     double girth=0.0;
     Link * tmpLink=new Link();
+    Link * linkOut=new Link();
     list<node>::iterator it;
     for(it=pclList.begin();it!=pclList.end();++it)
     {
         tmpLink->add((*it).x,(*it).y,(*it).z);
     }
-    calculateSpecificHeight(tmpLink,height,&girth);
+    calculateSpecificHeight(tmpLink,height,span,&girth,linkOut);
+    Node * tmp=linkOut->pointOfSpecificElement(1);
+    struct node tmpNode;
+    while(tmp!=NULL)
+    {
+        tmpNode.x=tmp->x;tmpNode.y=tmp->z;tmpNode.z=tmp->y;
+        pclOutList.push_back(tmpNode);
+        tmp=tmp->next;
+    }
     delete tmpLink;
+    delete linkOut;
     return girth;
 }
