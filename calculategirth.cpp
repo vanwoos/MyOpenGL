@@ -45,9 +45,10 @@ void calculateSpecificHeight(Link * link_bodyNoArm,double height,float span,doub
             tmp=tmp->next;
         }
     }
+    link_out->copy(link_tmp);
     {//使用凸包算法计算围长
         convelHull(link_tmp,5);
-        link_out->copy(link_tmp);
+        //link_out->copy(link_tmp);
         //pinghua2(link_tmp,PINGHUA);
         calculateGirth(link_tmp,girth,0);
     }
@@ -70,7 +71,7 @@ float calculateGirth(list<node> pclList,float height,float span,list<struct node
     struct node tmpNode;
     while(tmp!=NULL)
     {
-        tmpNode.x=tmp->x;tmpNode.y=tmp->z;tmpNode.z=tmp->y;
+        tmpNode.x=tmp->x;tmpNode.y=tmp->y;tmpNode.z=tmp->z;
         pclOutList.push_back(tmpNode);
         tmp=tmp->next;
     }

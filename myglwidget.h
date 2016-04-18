@@ -59,6 +59,7 @@ private:
     int printPoints();
 
 
+
     int xRot;//angle to rotate
     int yRot;
     int zRot;
@@ -72,13 +73,18 @@ private:
 
 public:
     int showPlat;//if show a platform
+    int showAxis=1;
     double platHeight;//the height of the platform
     double platSize;//the size of the platform
     int redPoints;//the number of red points
+    int xPointRot=0;
+    int yPointRot=0;
+    int zPointRot=0;
     list<struct node> pclList;
 
 public:
     int getPoints(char *filename);
+    friend void rigidTransform(float &x,float &y,float &z,int rotx,int roty,int rotz);
 };
 
 #endif // MYGLWIDGET_H

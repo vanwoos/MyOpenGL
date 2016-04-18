@@ -4,9 +4,30 @@
 #include <QtOpenGL>
 
 #include "myglwidget.h"
+#include <math.h>
 
 
+void rigidTransform(float &x,float &y,float &z,int rotx,int roty,int rotz)
+{
+    float tmpx,tmpy,tmpz;
+    double angx,angy,angz,PI=3.1415926535;
+    angx=rotx/360.0*2*PI;
+    angy=roty/360.0*2*PI;
+    angz=rotz/360.0*2*PI;
 
+    tmpy=y;tmpz=z;
+    y=tmpy*cos(angx)-tmpz*sin(angx);//rotx
+    z=tmpy*sin(angx)+tmpz*cos(angx);
+
+    tmpx=x;tmpz=z;
+    x=tmpx*cos(angy)+tmpz*sin(angy);//roty
+    z=-tmpx*sin(angy)+tmpz*cos(angy);
+
+    tmpx=x;tmpy=y;
+    x=tmpx*cos(angz)-tmpy*sin(angz);//rotz
+    y=tmpx*sin(angz)+tmpy*cos(angz);
+
+}
 
 
 
@@ -35,10 +56,13 @@ int MyGLWidget::printPoints()
 
     glColor3f(1.0,1.0,1.0);
     //printf("start print points\n");
+    float x,y,z;
     for(it=pclList.begin();it!=pclList.end();++it)
     {
+        x=(*it).x;y=(*it).y;z=(*it).z;
+        rigidTransform(x,y,z,this->xPointRot,this->yPointRot,this->zPointRot);
         glBegin(GL_POINTS);
-        glVertex3f((*it).x,(*it).y,(*it).z);
+        glVertex3f(x,y,z);
         glEnd();
         //printf("%f %f %f\n",(*it).x,(*it).y,(*it).z);
     }
@@ -53,8 +77,10 @@ int MyGLWidget::printPoints()
             {
                 --i;
                 if(i<0) break;
+                x=(*it).x;y=(*it).y;z=(*it).z;
+                rigidTransform(x,y,z,this->xPointRot,this->yPointRot,this->zPointRot);
                 glBegin(GL_POINTS);
-                glVertex3f((*it).x,(*it).y,(*it).z);
+                glVertex3f(x,y,z);
                 glEnd();
             }
         }
@@ -63,8 +89,10 @@ int MyGLWidget::printPoints()
             {
                 --i;
                 if(i<0) break;
+                x=(*it).x;y=(*it).y;z=(*it).z;
+                rigidTransform(x,y,z,this->xPointRot,this->yPointRot,this->zPointRot);
                 glBegin(GL_POINTS);
-                glVertex3f((*it).x,(*it).y,(*it).z);
+                glVertex3f(x,y,z);
                 glEnd();
             }
         }
@@ -196,7 +224,7 @@ void MyGLWidget::paintGL()
     }
     //draw();
     printPoints();
-    drawCoordinate();
+    if(this->showAxis) drawCoordinate();
 }
 
 void MyGLWidget::resizeGL(int width, int height)

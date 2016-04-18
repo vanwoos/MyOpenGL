@@ -9,6 +9,7 @@
 
 extern char * filename;
 //extern list<struct node> pclList;
+void rigidTransform(float &x,float &y,float &z,int rotx,int roty,int rotz);
 
 Window::Window(QWidget *parent) :
     QWidget(parent),
@@ -21,9 +22,10 @@ Window::Window(QWidget *parent) :
     connect(ui->myGLWidget, SIGNAL(zRotationChanged(int)), ui->rotZSlider, SLOT(setValue(int)));
     ui->doubleSpinBox_2->setValue(ui->myGLWidget->platSize);
     ui->horizontalSlider->setValue(int(ui->myGLWidget->platSize*100));
-    ui->widget->setXRotation(90);
+    //ui->widget->setXRotation(90);
     ui->myGLWidget->getPoints(filename);
     ui->widget->redPoints=0;
+    //ui->checkBox_2->clicked((bool)ui->myGLWidget->showAxis);//no use
 
 }
 
@@ -85,7 +87,16 @@ void Window::on_doubleSpinBox_valueChanged(double arg1)
 void Window::on_pushButton_clicked()
 {
     ui->widget->pclList.clear();
-    float girth=calculateGirth(ui->myGLWidget->pclList,ui->myGLWidget->platHeight,ui->doubleSpinBox_3->value()/100.0,ui->widget->pclList);
+    list<struct node> tmpPclList;
+    list<struct node>::iterator it;
+    for(it=ui->myGLWidget->pclList.begin();it!=ui->myGLWidget->pclList.end();++it)
+    {
+        struct node tmpnode;
+        tmpnode.x=(*it).x;tmpnode.y=(*it).y;tmpnode.z=(*it).z;
+        rigidTransform(tmpnode.x,tmpnode.y,tmpnode.z,ui->myGLWidget->xPointRot,ui->myGLWidget->yPointRot,ui->myGLWidget->zPointRot);
+        tmpPclList.push_back(tmpnode);
+    }
+    float girth=calculateGirth(tmpPclList,ui->myGLWidget->platHeight,ui->doubleSpinBox_3->value()/100.0,ui->widget->pclList);
     QString str;
     str.setNum(girth*100);
     ui->lineEdit->setText(str);
@@ -124,4 +135,30 @@ void Window::on_pushButton_3_clicked()
 {
     int tmpvalue=ui->spinBox->value();
     ui->spinBox->setValue(-tmpvalue);
+}
+
+void Window::on_spinBox_4_valueChanged(int arg1)
+{
+    ui->myGLWidget->xPointRot=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_spinBox_3_valueChanged(int arg1)
+{
+    ui->myGLWidget->yPointRot=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_spinBox_2_valueChanged(int arg1)
+{
+    ui->myGLWidget->zPointRot=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_checkBox_2_stateChanged(int arg1)
+{
+    ui->myGLWidget->showAxis=arg1;
+    ui->widget->showAxis=arg1;
+    ui->myGLWidget->updateGL();
+    ui->widget->updateGL();
 }

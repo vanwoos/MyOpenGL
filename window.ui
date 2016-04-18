@@ -79,7 +79,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Platform:</string>
+            <string>PlatSize:</string>
            </property>
           </widget>
          </item>
@@ -115,11 +115,21 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
          <item>
           <widget class="QCheckBox" name="checkBox">
            <property name="text">
-            <string>showOnLeft</string>
+            <string>showPlatOnLeft</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_2">
+           <property name="text">
+            <string>ShowAxis</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -136,7 +146,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Height(cm):</string>
+            <string>PlatHeight(cm):</string>
            </property>
           </widget>
          </item>
@@ -164,10 +174,10 @@
             <number>1</number>
            </property>
            <property name="minimum">
-            <double>-200.000000000000000</double>
+            <double>-999999.000000000000000</double>
            </property>
            <property name="maximum">
-            <double>200.000000000000000</double>
+            <double>999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>1.000000000000000</double>
@@ -278,13 +288,45 @@
          <item>
           <widget class="QSpinBox" name="spinBox">
            <property name="minimum">
-            <number>-99999</number>
+            <number>-999999</number>
            </property>
            <property name="maximum">
-            <number>99999</number>
+            <number>999999</number>
            </property>
            <property name="value">
             <number>-25</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Rigid Trans:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_4">
+           <property name="maximum">
+            <number>360</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_3">
+           <property name="maximum">
+            <number>360</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_2">
+           <property name="maximum">
+            <number>360</number>
            </property>
           </widget>
          </item>
