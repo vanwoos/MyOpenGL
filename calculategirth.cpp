@@ -45,13 +45,26 @@ void calculateSpecificHeight(Link * link_bodyNoArm,double height,float span,doub
             tmp=tmp->next;
         }
     }
-    link_out->copy(link_tmp);
+
+    /*char * filename="tmppcllist.txt.asc";
+    FILE * fp=fopen(filename,"w");
+
+    Node * tmptmp=link_tmp->pointOfSpecificElement(1);
+    while(tmptmp!=NULL)
+    {
+        fprintf(fp,"%lf %lf %lf\n",tmptmp->x,tmptmp->z,0.0);
+        tmptmp=tmptmp->next;
+    }
+    fclose(fp);*/
+
+    //link_out->copy(link_tmp);
     {//使用凸包算法计算围长
         convelHull(link_tmp,5);
         //link_out->copy(link_tmp);
         //pinghua2(link_tmp,PINGHUA);
         calculateGirth(link_tmp,girth,0);
     }
+    link_out->copy(link_tmp);
     //saveToFile(link_tmp,filename2);
     delete link_tmp;
 }
@@ -66,6 +79,8 @@ float calculateGirth(list<node> pclList,float height,float span,list<struct node
     {
         tmpLink->add((*it).x,(*it).y,(*it).z);
     }
+
+
     calculateSpecificHeight(tmpLink,height,span,&girth,linkOut);
     Node * tmp=linkOut->pointOfSpecificElement(1);
     struct node tmpNode;

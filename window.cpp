@@ -128,7 +128,9 @@ void Window::on_doubleSpinBox_2_valueChanged(double arg1)
 void Window::on_spinBox_valueChanged(int arg1)
 {
     ui->myGLWidget->redPoints=arg1;
+
     ui->myGLWidget->updateGL();
+    ui->LastRedPoint_LineEdit->setText(ui->myGLWidget->lastRedPoint);
 }
 
 void Window::on_pushButton_3_clicked()

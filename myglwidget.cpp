@@ -71,6 +71,8 @@ int MyGLWidget::printPoints()
     {//draw red points
         int i=abs(this->redPoints);
         //i=25;
+        this->lastRedPoint="none";
+        char buff[100];
         if(redPoints>0)
         {
             for(it=pclList.begin();it!=pclList.end();++it)
@@ -82,19 +84,27 @@ int MyGLWidget::printPoints()
                 glBegin(GL_POINTS);
                 glVertex3f(x,y,z);
                 glEnd();
+                sprintf(buff,"%lf %lf %lf",x,y,z);
+                this->lastRedPoint=buff;
             }
         }
         else{
-            for(it=pclList.end();it!=pclList.begin();--it)
+            for(it=pclList.end();it!=pclList.begin();)
             {
                 --i;
                 if(i<0) break;
+                --it;
                 x=(*it).x;y=(*it).y;z=(*it).z;
                 rigidTransform(x,y,z,this->xPointRot,this->yPointRot,this->zPointRot);
                 glBegin(GL_POINTS);
                 glVertex3f(x,y,z);
                 glEnd();
+                sprintf(buff,"%lf %lf %lf",x,y,z);
+                this->lastRedPoint=buff;
             }
+        }
+        {//print coordiante of the last red point
+            //this->lastRedPoint="hello";
         }
     }
     glColor3f(1.0,1.0,1.0);

@@ -4,6 +4,7 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
+#include <QString>
 #include <list>
 using namespace std;
 
@@ -81,6 +82,7 @@ public:
     int yPointRot=0;
     int zPointRot=0;
     list<struct node> pclList;
+    QString lastRedPoint="";
 
 public:
     int getPoints(char *filename);
