@@ -201,7 +201,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		MyOpenGL.pro window.h \
 		myglwidget.h \
-		calculategirth.h main.cpp \
+		calculategirth.h \
+		convelHull.func.h main.cpp \
 		window.cpp \
 		myglwidget.cpp \
 		calculategirth.cpp
@@ -521,7 +522,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents window.h myglwidget.h calculategirth.h $(DISTDIR)/
+	$(COPY_FILE) --parents window.h myglwidget.h calculategirth.h convelHull.func.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp window.cpp myglwidget.cpp calculategirth.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents window.ui $(DISTDIR)/
 

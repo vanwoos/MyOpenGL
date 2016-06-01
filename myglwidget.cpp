@@ -235,6 +235,15 @@ void MyGLWidget::paintGL()
     //draw();
     printPoints();
     if(this->showAxis) drawCoordinate();
+
+    glColor3f(0.0,1.0,0.0);
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+    glVertex3f(greenPointX,greenPointY,greenPointZ);
+    glEnd();
+    glColor3f(1.0,1.0,1.0);
+    glPointSize(1.0);
+
 }
 
 void MyGLWidget::resizeGL(int width, int height)

@@ -83,6 +83,9 @@ public:
     int zPointRot=0;
     list<struct node> pclList;
     QString lastRedPoint="";
+    double greenPointX=0.0;
+    double greenPointY=0.0;
+    double greenPointZ=0.0;
 
 public:
     int getPoints(char *filename);

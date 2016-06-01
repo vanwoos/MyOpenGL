@@ -1,24 +1,24 @@
 int RightOrLeft(double x1,double y1,double x2,double y2,double x3,double y3)//判断第三个点在前两个点连成的直线的哪个位置，-1 左边，0，直线上，1 右边
 {
 	int result;
-	if(x1-x2<0.000001 && x1-x2>-0.000001 && y1-y2<0.000001 && y1-y2>-0.000001)
+    if(x1-x2<0.0000001 && x1-x2>-0.0000001 && y1-y2<0.0000001 && y1-y2>-0.0000001)
 	{
 		return 1;
 	}
 	double X=(y3-y1)*(x2-x1)/(y2-y1)+x1;
 
-	if(X-x3<-0.000001)
+    if(X-x3<-0.0000001)
 	{
 		result=1;
 	}
-	else if(X-x3>0.000001)
+    else if(X-x3>0.0000001)
 	{
 		result=-1;
 	}
 	else{
 		result=0;
 	}
-	if(y2-y1<-0.000001)
+    if(y2-y1<-0.0000001)
 	{
 		result=-result;
 	}

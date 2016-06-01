@@ -19,6 +19,7 @@ SOURCES += main.cpp\
 
 HEADERS  += window.h \
     myglwidget.h \
-    calculategirth.h
+    calculategirth.h \
+    convelHull.func.h
 
 FORMS    += window.ui

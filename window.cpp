@@ -164,3 +164,21 @@ void Window::on_checkBox_2_stateChanged(int arg1)
     ui->myGLWidget->updateGL();
     ui->widget->updateGL();
 }
+
+void Window::on_doubleSpinBox_4_valueChanged(double arg1)
+{
+    ui->myGLWidget->greenPointX=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_doubleSpinBox_5_valueChanged(double arg1)
+{
+    ui->myGLWidget->greenPointY=arg1;
+    ui->myGLWidget->updateGL();
+}
+
+void Window::on_doubleSpinBox_6_valueChanged(double arg1)
+{
+    ui->myGLWidget->greenPointZ=arg1;
+    ui->myGLWidget->updateGL();
+}

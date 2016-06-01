@@ -46,7 +46,7 @@ void calculateSpecificHeight(Link * link_bodyNoArm,double height,float span,doub
         }
     }
 
-    /*char * filename="tmppcllist.txt.asc";
+    char * filename="tmppcllist.txt.asc";
     FILE * fp=fopen(filename,"w");
 
     Node * tmptmp=link_tmp->pointOfSpecificElement(1);
@@ -55,7 +55,7 @@ void calculateSpecificHeight(Link * link_bodyNoArm,double height,float span,doub
         fprintf(fp,"%lf %lf %lf\n",tmptmp->x,tmptmp->z,0.0);
         tmptmp=tmptmp->next;
     }
-    fclose(fp);*/
+    fclose(fp);
 
     //link_out->copy(link_tmp);
     {//使用凸包算法计算围长

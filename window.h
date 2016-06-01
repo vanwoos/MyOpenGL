@@ -58,6 +58,12 @@ private slots:
 
     void on_checkBox_2_stateChanged(int arg1);
 
+    void on_doubleSpinBox_4_valueChanged(double arg1);
+
+    void on_doubleSpinBox_5_valueChanged(double arg1);
+
+    void on_doubleSpinBox_6_valueChanged(double arg1);
+
 private:
     Ui::Window *ui;
 };
